@@ -1,0 +1,29 @@
+ELM327 GUI 2025_10_12 lambdaexpression CommandEntered változtatás előtt
+
+ATCommandWindow.xaml.cs
+
+using ELM327_GUI.MVVM.ViewModel;
+using System;
+using System.Windows;
+using System.Windows.Input;
+
+namespace ELM327_GUI.MVVM.View
+{
+    public partial class ATCommandWindow : Window
+    {
+        public event Action<string> CommandEntered;
+        public ATCommandWindow()
+        {
+            InitializeComponent();
+            var vm = new ATCommandWindowViewModel();
+            this.DataContext = vm;
+
+            vm.RequestClose += () => this.Close();
+            vm.CommandEntered += Cmd => { /* parancs végrehajtás, ha kell */ };
+
+            // fókuszállítás itt marad a view-ban
+            this.Loaded += (s, e) => ATCommandTextBox.Focus();
+        }
+    }
+
+}

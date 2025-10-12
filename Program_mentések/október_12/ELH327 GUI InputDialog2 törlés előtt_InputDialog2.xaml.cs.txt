@@ -1,0 +1,41 @@
+ELH327 GUI InputDialog2 törlés előtt! 2025_10_12
+
+InputDialog2.xaml.cs
+
+using ELM327_GUI.MVVM.ViewModel;
+using System.Windows;
+
+
+namespace ELM327_GUI.MVVM.View
+{
+    public partial class InputDialog2 : Window
+    {
+        public string Result { get; private set; }
+
+        public InputDialog2(string message, Window owner)
+        {
+            InitializeComponent();
+
+            var viewModel = new InputDialogViewModel(message);
+
+            viewModel.OnAccept = input =>
+            {
+                Result = input;
+                DialogResult = true;
+                Close();
+            };
+            viewModel.OnShowList = () =>
+            {
+                string filePath = System.IO.Path.Combine(
+                    System.AppDomain.CurrentDomain.BaseDirectory, "Files", "FULL_PID_list_with_explanation.txt");
+                var viewer = new FileViewerWindow(filePath);
+                viewer.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                viewer.Owner = this;
+                viewer.ShowDialog();
+            };
+
+            DataContext = viewModel;
+        }
+    }
+}
+

@@ -1,0 +1,43 @@
+﻿using System.Diagnostics;
+using Microsoft.Win32;
+using System.Windows;
+
+namespace ELM327_GUI.Methods
+{
+    public static class ParserMethods
+    {
+        public static string RunParser(Window owner)
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "DBC files (*.dbc)|*.dbc|All files (*.*)|*.*";
+            openFileDialog.Title = "Válassz .dbc fájlt a feldolgozáshoz";
+
+            if (openFileDialog.ShowDialog(owner) == true)
+            {
+                string dbcFilePath = openFileDialog.FileName;
+                string parserExePath = System.IO.Path.Combine(
+                    System.AppDomain.CurrentDomain.BaseDirectory, "Tools", "dbc_Parser.dll");
+               
+                var process = new Process();
+                process.StartInfo.FileName = "dotnet";
+                process.StartInfo.Arguments = $"\"{parserExePath.Replace(".exe", ".dll")}\" \"{dbcFilePath}\"";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.CreateNoWindow = true;
+
+                process.Start();
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                if (!string.IsNullOrWhiteSpace(output))
+                    return output;
+                if (!string.IsNullOrWhiteSpace(error))
+                    return "Parser error: " + error;
+                return "Parser did not return any output.";
+            }
+            return "No file selected.";
+        }
+    }
+}

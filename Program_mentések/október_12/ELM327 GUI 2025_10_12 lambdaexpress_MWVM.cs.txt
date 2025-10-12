@@ -1,0 +1,220 @@
+ELM327 GUI 2025_10_12 lambdaexpression CommandEntered változtatás előtt
+
+MainWindowViewModel.cs
+
+using ELM327_GUI.Methods;
+using ELM327_GUI.MVVM.View;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Ports;
+using System.Windows;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+namespace ELM327_GUI.MVVM.ViewModel
+{
+    public class MainWindowViewModel : ObservableObject
+    {
+        private SerialPort serialPort;
+        private List<string> response = new List<string>();
+
+        public ICommand AutodataCommand { get; }
+        public ICommand ATcommandCommand { get; }
+        public ICommand PIDcommandCommand { get; }
+        public ICommand ParsingCommand { get; }
+        public ICommand UdsCommand { get; }
+        public ICommand HowtouseCommand { get; }
+        public ICommand OBDsettingCommand { get; }
+        public ICommand PDFreportgenCommand { get; }
+        public ICommand CommandsfromfileCommand { get; }
+        public ICommand ExitCommand { get; }
+
+        public MainWindowViewModel()
+        {
+            AutodataCommand = new RelayCommand<object>(AutodataExecute);
+            ATcommandCommand = new RelayCommand<object>(ATcommandExecute);
+            PIDcommandCommand = new RelayCommand<object>(PIDcommandExecute);
+            ParsingCommand = new RelayCommand<object>(ParsingExecute);
+            UdsCommand = new RelayCommand<object>(UdsExecute);
+            HowtouseCommand = new RelayCommand<object>(HowtouseExecute);
+            OBDsettingCommand = new RelayCommand<object>(OBDsettingExecute);
+            PDFreportgenCommand = new RelayCommand<object>(PDFreportgenExecute);
+            CommandsfromfileCommand = new RelayCommand<object>(CommandsfromfileExecute);
+            ExitCommand = new RelayCommand<object>(ExitExecute);
+        }
+
+        private void AutodataExecute(object obj)
+        {
+            var dialog = new InputDialog("Enter data:", "Autó adatai", "");
+            dialog.ShowDialog();
+        }
+
+        private void ATcommandExecute(object obj)
+        {
+            var selectorWindow = new PortSelectorWindow();
+            bool? result = selectorWindow.ShowDialog();
+
+            if (result != true || selectorWindow.SelectedPort == null)
+            {
+                MessageBox.Show("Nem választottál portot.");
+                return;
+            }
+
+            string selectedPort = selectorWindow.SelectedPort;
+
+            try
+            {
+                if (serialPort != null && serialPort.IsOpen)
+                    serialPort.Close();
+
+                serialPort = new SerialPort(selectedPort, 115200);
+                serialPort.DataBits = 8;
+                serialPort.Parity = Parity.None;
+                serialPort.StopBits = StopBits.One;
+                serialPort.Handshake = Handshake.None;
+                serialPort.ReadTimeout = 3000;
+                serialPort.WriteTimeout = 3000;
+                serialPort.NewLine = "\r";
+                serialPort.Open();
+
+                MessageBox.Show($"A port {selectedPort} megnyitva.");
+
+                var commandWindow = new ATCommandWindow();
+                commandWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                commandWindow.Owner = Application.Current.MainWindow;
+                commandWindow.ShowDialog();
+
+                commandWindow.CommandEntered += (cmd) =>
+                {
+                    MessageBox.Show($"Parancs: {cmd}");
+                    SendATCommand(cmd);
+                };
+
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a port megnyitásakor: {ex.Message}");
+            }
+        }
+
+        private void SendATCommand(string command)
+        {
+            if (serialPort == null || !serialPort.IsOpen)
+            {
+                MessageBox.Show("A port nincs megnyitva!");
+                return;
+            }
+
+            try
+            {
+                serialPort.WriteLine(command);
+                string resp = serialPort.ReadLine();
+                MessageBox.Show($"Válasz: {resp}");
+                response.Add(resp);
+
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "response.txt");
+                File.AppendAllText(filePath, resp + Environment.NewLine);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("Nincs válasz az ELM327 eszköztől (időtúllépés).");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba az AT parancs küldésekor: {ex.Message}");
+            }
+        }
+
+        private void PIDcommandExecute(object obj)
+        {
+            var dialog = new InputDialog2("Szeretnél közvetlenül parancsot beírni, vagy szeretnél egy segédletet, azaz egy teljes listát a parancsokkal?", "PID parancsok");
+            dialog.ShowDialog();
+        }
+
+        private void ParsingExecute(object obj)
+        {
+            string result = ParserMethods.RunParser(Application.Current.MainWindow);
+            MessageBox.Show(result, "Parsing Result");
+        }
+
+        private void UdsExecute(object obj)
+        {
+            MessageBox.Show("UDS kompatibilitás ellenőrzés");
+        }
+
+        private void HowtouseExecute(object obj)
+        {
+            string pdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files", "HowToUse.pdf");
+            if (File.Exists(pdfPath))
+            {
+                Process.Start(pdfPath);
+            }
+            else
+            {
+                MessageBox.Show("HowToUse.pdf not found in Files folder.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void OBDsettingExecute(object obj)
+        {
+            MessageBox.Show("OBD eszköz beállítás gombra kattintottál. Itt konfigurálhatod a portot, baud rate-et stb.");
+        }
+
+        private void PDFreportgenExecute(object obj)
+        {
+            string responseFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "response.txt");
+            if (!File.Exists(responseFile))
+            {
+                MessageBox.Show("response.txt nem található.", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string[] lines = File.ReadAllLines(responseFile);
+
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "ELM327 AT Command Responses";
+
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont font = new XFont("Arial", 12);
+
+            double margin = 40;
+            double lineHeight = 20;
+            double yPoint = margin;
+            double usableHeight = page.Height.Point - margin;
+
+            foreach (string line in lines)
+            {
+                gfx.DrawString(line, font, XBrushes.Black, new XRect(margin, yPoint, page.Width.Point - 2 * margin, usableHeight), XStringFormats.TopLeft);
+                yPoint += lineHeight;
+                if (yPoint > page.Height.Point - margin)
+                {
+                    page = document.AddPage();
+                    gfx = XGraphics.FromPdfPage(page);
+                    yPoint = margin;
+                }
+            }
+
+            string pdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "response_report.pdf");
+            document.Save(pdfPath);
+            MessageBox.Show($"PDF riport elkészült: {pdfPath}", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void CommandsfromfileExecute(object obj)
+        {
+            MessageBox.Show("Parancsok fájlból betöltése. Itt olvashatsz be AT vagy PID parancsokat egy fájlból.");
+        }
+
+        private void ExitExecute(object obj)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Shutdown());
+        }
+    }
+}

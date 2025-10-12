@@ -1,0 +1,14 @@
+﻿<Window x:Class="ELM327_GUI.MVVM.View.PortSelectorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ELM327_GUI.MVVM.View"
+        mc:Ignorable="d"
+        Title="Port kiválasztása" Height="150" Width="300">
+	<StackPanel Margin="10">
+		<TextBlock Text="Kérlek, válassz portot:" Margin="0,0,0,10"/>
+		<ComboBox x:Name="PortComboBox" Width="200" Margin="0,0,0,10"/>
+		<Button Content="OK" Width="80" HorizontalAlignment="Right" Click="OkButton_Click"/>
+	</StackPanel>
+</Window>

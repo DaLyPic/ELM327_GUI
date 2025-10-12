@@ -1,0 +1,162 @@
+PID	Description
+00	PID support status for PIDs $01-$20 Details
+01	Monitor status since DTCs cleared Details
+02	DTC that caused required freeze frame data storage Details
+03	Fuel system status Details
+04	Calculated load value Details
+05	Engine coolant temperature Details
+06	Short term fuel trim (banks 1 and 3) Details
+07	Long term fuel trim (banks 1 and 3) Details
+08	Short term fuel trim (banks 2 and 4) Details
+09	Long term fuel trim (banks 2 and 4) Details
+0A	Fuel rail pressure (gauge) Details
+0B	Intake manifold absolute pressure Details
+0C	Engine RPM Details
+0D	Vehicle speed Details
+0E	Ignition timing advance for #1 cylinder Details
+0F	Intake air temperature Details
+10	Air flow rate from mass air flow sensor Details
+11	Absolute throttle position Details
+12	Commanded secondary air status Details
+13	Location of oxygen sensors (up to 2 banks) Details
+14	Oxygen sensor (narrowband) bank 1 sensor 1 Details
+15	Oxygen sensor (narrowband) bank 1 sensor 2 Details
+16	Oxygen sensor (narrowband) bank 1 sensor 3 Details
+17	Oxygen sensor (narrowband) bank 1 sensor 4 Details
+18	Oxygen sensor (narrowband) bank 2 sensor 1 Details
+19	Oxygen sensor (narrowband) bank 2 sensor 2 Details
+1A	Oxygen sensor (narrowband) bank 2 sensor 3 Details
+1B	Oxygen sensor (narrowband) bank 2 sensor 4 Details
+1C	OBD requirements to which vehicle or engine is certified Details
+1D	Location of oxygen sensors (up to 4 banks) Details
+1E	Auxiliary input status Details
+1F	Time since engine start Details
+20	PID support status for PIDs $21-$40 Details
+21	Distance traveled while MIL is activated Details
+22	Fuel rail pressure relative to manifold vacuum Details
+23	Fuel rail pressure Details
+24	Oxygen sensor (wideband) bank 1 sensor 1 Details
+25	Oxygen sensor (wideband) bank 1 sensor 2 Details
+26	Oxygen sensor (wideband) bank 1 sensor 3 Details
+27	Oxygen sensor (wideband) bank 1 sensor 4 Details
+28	Oxygen sensor (wideband) bank 2 sensor 1 Details
+29	Oxygen sensor (wideband) bank 2 sensor 2 Details
+2A	Oxygen sensor (wideband) bank 2 sensor 3 Details
+2B	Oxygen sensor (wideband) bank 2 sensor 4 Details
+2C	Commanded EGR Details
+2D	EGR Error Details
+2E	Commanded Evaporative Purge Details
+2F	Fuel Level Input Details
+30	Number of warm-ups since DTCs cleared Details
+31	Distance traveled since DTCs cleared Details
+32	Evap System Vapor Pressure Details
+33	Barometric Pressure Details
+34	Oxygen sensor (wideband) bank 1 sensor 1 Details
+35	Oxygen sensor (wideband) bank 1 sensor 2 Details
+36	Oxygen sensor (wideband) bank 1 sensor 3 Details
+37	Oxygen sensor (wideband) bank 1 sensor 4 Details
+38	Oxygen sensor (wideband) bank 2 sensor 1 Details
+39	Oxygen sensor (wideband) bank 2 sensor 2 Details
+3A	Oxygen sensor (wideband) bank 2 sensor 3 Details
+3B	Oxygen sensor (wideband) bank 2 sensor 4 Details
+3C	Catalyst Temperature Bank 1, Sensor 1 Details
+3D	Catalyst Temperature Bank 2, Sensor 1 Details
+3E	Catalyst Temperature Bank 1, Sensor 2 Details
+3F	Catalyst Temperature Bank 2, Sensor 2 Details
+40	PID support status for PIDs $41-$60 Details
+41	Monitor status this driving cycle Details
+42	Control module voltage Details
+43	Absolute Load Value Details
+44	Fuel/Air Commanded Equivalence Ratio Details
+45	Relative Throttle Position Details
+46	Ambient air temperature Details
+47	Absolute Throttle Position B Details
+48	Absolute Throttle Position C Details
+49	Absolute Throttle Position D Details
+4A	Absolute Throttle Position E Details
+4B	Absolute Throttle Position F Details
+4C	Commanded Throttle Actuator Control Details
+4D	Engine run time while MIL is activated Details
+4E	Engine run time since DTCs cleared Details
+4F	External Test Equipment Configuration Information #1 Details
+50	External Test Equipment Configuration Information #2 Details
+51	Type of fuel currently being utilized by the vehicle Details
+52	Alcohol Fuel Percentage Details
+53	Absolute Evap System Vapor Pressure Details
+54	Evap System Vapor Pressure Details
+55	Short Term Secondary O2 Sensor Fuel Trim Banks 1 and 3 Details
+56	Long Term Secondary O2 Sensor Fuel Trim Banks 1 and 3 Details
+57	Short Term Secondary O2 Sensor Fuel Trim Banks 2 and 4 Details
+58	Long Term Secondary O2 Sensor Fuel Trim Banks 2 and 4 Details
+59	Fuel Rail Pressure (absolute) Details
+5A	Relative Accelerator Pedal Position Details
+5B	Hybrid/EV Battery Pack Remaining Charge Details
+5C	Engine Oil Temperature Details
+5D	Fuel Injection Timing Details
+5E	Engine Fuel Rate Details
+5F	Emission requirements to which vehicle is designed Details
+60	PID support status for PIDs $61-$80 Details
+61	Driver's Demand Engine - Percent Torque Details
+62	Actual Engine - Percent Torque Details
+63	Engine Reference Torque Details
+64	Engine Percent Torque Data Details
+65	Auxiliary Inputs / Outputs Details
+66	Mass Air Flow Sensor Details
+67	Engine Coolant Temperature Details
+68	Intake Air Temperature Sensor Details
+69	Commanded EGR and EGR Error Details
+6A	Commanded Diesel Intake Air Flow Control and Relative Intake Air Flow Position Details
+6B	Exhaust Gas Recirculation Temperature Details
+6C	Commanded Throttle Actuator Control and Relative Throttle Position Details
+6D	Fuel Pressure Control System Details
+6E	Injection Pressure Control System Details
+6F	Turbocharger Compressor Inlet Pressure Details
+70	Boost Pressure Control Details
+71	Variable Geometry Turbo (VGT) Control Details
+72	Wastegate Control Details
+73	Exhaust Pressure Details
+74	Turbocharger RPM Details
+75	Turbocharger A Temperature Details
+76	Turbocharger B Temperature Details
+77	Charge Air Cooler Temperature (CACT) Details
+78	Exhaust Gas Temperature (EGT) Bank 1 Details
+79	Exhaust Gas Temperature (EGT) Bank 2 Details
+7A	Diesel Particulate Filter (DPF) Bank 1 Details
+7B	Diesel Particulate Filter (DPF) Bank 2 Details
+7C	Diesel Particulate Filter (DPF) Temperature Details
+7D	NOx NTE control area status Details
+7E	PM NTE control area status Details
+7F	Engine Run Time Details
+80	PID support status for PIDs $81-$A0 Details
+81	Engine Run Time for AECD #1 - #5 Details
+82	Engine Run Time for AECD #6 - #10 Details
+83	NOx Sensor Details
+84	Intake Manifold Surface Temperature Details
+85	NOx Control System Details
+86	Particulate Matter (PM) Sensor Details
+87	Intake Manifold Absolute Pressure Details
+88	SCR inducement system Details
+89	Engine Run Time for AECD #11 - #15 Details
+8A	Engine Run Time for AECD #16 - #20 Details
+8B	Diesel Aftertreatment Status Details
+8C	O2 Sensor (Wide Range) Details
+8D	Absolute Throttle Position G Details
+8E	Engine Friction - Percent Torque Details
+8F	Particulate Matter (PM) Sensor Output Details
+90	WWH-OBD Vehicle OBD System Information Details
+91	WWH-OBD ECU OBD System Information Details
+92	Fuel System Control Status (Compression Ignition) Details
+93	WWH-OBD Vehicle OBD Counters Details
+94	NOx control - driver inducement system status and counters Details
+95	Reserved
+96	Reserved
+97	Reserved
+98	Exhaust Gas Temperature (EGT) Bank 1 Details
+99	Exhaust Gas Temperature (EGT) Bank 2 Details
+9A	Reserved
+9B	Reserved
+9C	O2 Sensor (Wide Range) Details
+9D	Reserved
+9E	Reserved
+9F	Reserved
+All other PIDs are reserved!!!

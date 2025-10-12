@@ -1,0 +1,60 @@
+ELM327_GUI változtatás!!! 2025_10_08_este
+
+MainWindow.xaml.cs
+
+private void ATcommandButton_Click(object sender, RoutedEventArgs e)
+{
+    PortSelector.Visibility = Visibility.Visible;
+    MessageBox.Show("Kérlek, válassz portot a listából!");
+    
+
+    string selectedPort = PortSelector.SelectedItem as string;
+
+    try
+    {
+        if (serialPort != null && serialPort.IsOpen)
+            serialPort.Close();
+
+        serialPort = new SerialPort(selectedPort, 115200);
+        serialPort.DataBits = 8;
+        serialPort.Parity = Parity.None;
+        serialPort.StopBits = StopBits.One;
+        serialPort.Handshake = Handshake.None;
+        serialPort.ReadTimeout = 3000;
+        serialPort.WriteTimeout = 3000;
+        serialPort.NewLine = "\r";
+        serialPort.Open();
+
+        MessageBox.Show($"A port {selectedPort} megnyitva.");
+
+        // AT parancs küldése
+        string atCommand = new InputDialog("Írd be az AT parancsot:", "AT parancs küldése", "ATZ").ShowDialog();
+        if (!string.IsNullOrWhiteSpace(atCommand))
+        {
+            SendATCommand(atCommand);
+        }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Hiba történt a port megnyitásakor: {ex.Message}");
+    }
+}
+
+
+
+
+Portselector:
+
+
+   <StackPanel Grid.Row="1" Grid.Column="1"
+Margin="10"
+VerticalAlignment="Top"
+HorizontalAlignment="Center">
+       <ComboBox x:Name="PortSelector"
+                 SelectionChanged="PortSelector_SelectionChanged"
+                 Width="150" 
+                 Height="30" 
+                 Margin="0,0,0,10"
+                 Visibility="Collapsed"/>
+                 
+   </StackPanel>

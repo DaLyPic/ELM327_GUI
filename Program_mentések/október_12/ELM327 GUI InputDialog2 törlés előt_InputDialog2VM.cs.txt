@@ -1,0 +1,49 @@
+ELM327 GUI InputDialog2 törlés előtt! 2025_10_12
+
+InputDialog2.ViewModel.cs
+
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ELM327_GUI.MVVM.ViewModel
+{
+    public class InputDialogViewModel : ObservableObject
+    {
+        public string Prompt { get; }
+
+        private string inputText;
+        public string InputText
+        {
+            get => inputText;
+            set => SetProperty(ref inputText, value);
+        }
+
+        public RelayCommand AcceptCommand { get; }
+        public RelayCommand ShowListCommand { get; }
+
+        public Action<string> OnAccept { get; set; }
+        public Action OnShowList { get; set; }
+
+        public InputDialogViewModel(string prompt)
+        {
+            Prompt = prompt;
+            AcceptCommand = new RelayCommand(HandleAccept);
+            ShowListCommand = new RelayCommand(HandleShowList);
+        }
+
+        private void HandleAccept()
+        {
+            OnAccept?.Invoke(InputText);
+        }
+
+        private void HandleShowList()
+        {
+            OnShowList?.Invoke();
+        }
+    }
+}
