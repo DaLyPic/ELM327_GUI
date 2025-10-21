@@ -8,7 +8,7 @@ using ELM327_GUI.MVVM.View;
 
 namespace ELM327_GUI.MVVM.ViewModel
 {
-    internal class PIDCommandWindowViewModel : ObservableObject
+    public class PIDCommandWindowViewModel : ObservableObject
     {
         private string _commandText;
 

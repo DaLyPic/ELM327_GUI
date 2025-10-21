@@ -9,9 +9,10 @@ using System.Windows;
 using System.Windows.Input;
 using ELM327_GUI.MVVM.Model;
 
+
 namespace ELM327_GUI.MVVM.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class DbcParserViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,13 +32,14 @@ namespace ELM327_GUI.MVVM.ViewModel
 
         public ICommand ParsingCommand { get; }
 
-        public MainViewModel()
+        public DbcParserViewModel()
         {
             ParsingCommand = new RelayCommand<object>(ParsingExecute);
         }
 
         private void ParsingExecute(object obj)
         {
+            MessageBox.Show("ParsingExecute called");
             try
             {
                 string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files", "11-bit-OBD2-v4.0.dbc");

@@ -66,35 +66,35 @@
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding AutodataCommand}"/>
+                        Command="{Binding MainVM.AutodataCommand}"/>
 
                  <Button x:Name="ATcommandButton"
                         Content="AT parancsok"
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding ATcommandCommand}"/>
+                        Command="{Binding MainVM.ATcommandCommand}"/>
 					 
                 <Button x:Name="PIDcommandButton"
                         Content="PID parancsok"
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding PIDcommandCommand}"/>
+                        Command="{Binding MainVM.PIDcommandCommand}"/>
 				
                 <Button x:Name="parsingButton"
                         Content=".dbc adatfájl parsing"
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding ParsingCommand}"/>
+                        Command="{Binding DbcParserVM.ParsingCommand}"/>
 				
                 <Button x:Name="udsButton"
                         Content="UDS kompatibilitás"
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding UdsCommand}"/>
+                        Command="{Binding MainVM.UdsCommand}"/>
 				
             </StackPanel>
 
@@ -110,35 +110,35 @@
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding HowtouseCommand}"/>
+                        Command="{Binding MainVM.HowtouseCommand}"/>
 				
                 <Button x:Name="OBDsettingButton"
                         Content="OBD eszköz beállítás"
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding OBDsettingCommand}"/>
+                        Command="{Binding MainVM.OBDsettingCommand}"/>
 				
                 <Button x:Name="PDFreportgenButton"
                         Content="PDF riport generálás"
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding PDFreportgenCommand}"/>
+                        Command="{Binding MainVM.PDFreportgenCommand}"/>
 				
                 <Button x:Name="commandsfromfileButton"
                         Content="Parancsok fájlból"
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding CommandsfromfileCommand}"/>
+                        Command="{Binding MainVM.CommandsfromfileCommand}"/>
 				
                 <Button x:Name="exitButton"
                         Content="Kilépés"
                         Width="150"
                         Height="40"
                         Margin="0,10,0,10"
-                        Command="{Binding ExitCommand}"/>
+                        Command="{Binding MainVM.ExitCommand}"/>
 
             </StackPanel>
 

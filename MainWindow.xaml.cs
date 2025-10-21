@@ -14,7 +14,7 @@ namespace ELM327_GUI
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
+            this.DataContext = new MainViewModel(); // Az új aggregátor ViewModel
 
             CultureInfo magyarKultura = new CultureInfo("hu-HU");
 
